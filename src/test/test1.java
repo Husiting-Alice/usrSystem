@@ -96,6 +96,8 @@ class test1 {
 		usr.setName("黄蔡糀");
 		usr.setSex("女");
 		usr.setBirthday(TypeUtils.strToDate("1909-09-09"));
+		
+		
 //		usr.setBirthday(Date("1990-09-09"));
 //		usr.setBirthday("1909-09-09");
 		usr.setEmail("666666@139.com");

@@ -2,6 +2,7 @@ package com.lingnan.usermansys.comm.dao;
 
 import java.sql.Connection;
 
+import com.lingnan.usermansys.business.dao.UserDaoImpl;
 import com.lingnan.usermansys.comm.exception.ServiceException;
 
 public class DaoFactory {
@@ -15,7 +16,7 @@ public class DaoFactory {
 		//如果传入的DAO类型是用户users（即users表），就去实例化用户DAO实现类
 		if ("users".equals(type)) {
 			//返回实例化的DAO对象
-//			return new UsersDaoImpl(conn);
+			return new UserDaoImpl(conn);
 			
 		}
 		//如果传入的DAO类型是用户order（即order表），就去实例化订单DAO实现类
@@ -27,7 +28,7 @@ public class DaoFactory {
 			throw new ServiceException("dao工厂方法出错");
 		}		
 		
-		return null;
+		
 		
 	}
 

@@ -1,4 +1,5 @@
 package com.lingnan.usermansys.business.dao;
+import java.security.Timestamp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,6 +8,8 @@ import com.lingnan.usermansys.comm.exception.ServiceException;
 import com.lingnan.usermansys.comm.util.DbUtils;
 import com.lingnan.usermansys.comm.util.Md5Utils;
 import com.lingnan.usermansys.usermgr.domain.UserVO;
+
+import oracle.sql.TIMESTAMP;
 
 public class UserDaoImpl implements UsersDao {
 
@@ -77,13 +80,20 @@ public class UserDaoImpl implements UsersDao {
 		int status = usr.getStatus();
 
 		try {
-			String sql = "insert into users values('" + username + "','" + pwd + "'," 
-					      + power + ",'" + name + "','"+ sex + "','" + birthday + "','"
-					+ email +"'," + status + ")";
-			prep = conn.prepareStatement(sql);
+			prep = conn.prepareStatement("insert into users values(?,?,?,?,?,?,?,?)");
+			prep.setString(1, username);
+			prep.setString(2, pwd);
+			prep.setInt(3, power);
+			prep.setString(4, name);
+			prep.setString(5, sex);
+			prep.setDate(6, new java.sql.Date(birthday.getTime()));
+			prep.setString(7, email);
+			prep.setInt(8, status);			
+			
 			prep.executeUpdate();
 			DbUtils.commit(conn);
 			flag = true;
+			System.out.println("注册成功");
 
 		} catch (Exception e) {
 			throw new ServiceException("用户注册的时候出错了。。。", e);
@@ -152,15 +162,72 @@ public class UserDaoImpl implements UsersDao {
 			throw new ServiceException("查询所有用户信息的时候出错了，，。", e);
 
 		} finally {
+			DbUtils.closeStatement(rs, null, prep);
 
 		}
 
 		return user;
 	}
 	
-	public boolean updateUser() {
-		//
+	public boolean updateUser(UserVO usr) {
+		//更新用户信息,让用户指定需要更新的字段，而非全部更新
+		boolean flag = false;
+		PreparedStatement prep = null;
+		String username = usr.getUsername();
+		String pwd = usr.getPasswd();
+		int power = usr.getPower();
+		String name = usr.getName();
+		String sex = usr.getSex();
+		Date birthday = usr.getBirthday();
+		String email = usr.getEmail();
+		int status = usr.getStatus();
+		
+		try {
+//			prep=conn.prepareStatement("update users")
+			
+			
+		} catch (Exception e) {
+			
+		}finally {
+			DbUtils.closeStatement(null, null, prep);
+		}
+		
+		
 		return false;
+		/*
+		 * create or replace procedure pro_updateuser
+(
+a_passwd in Varchar2,
+a_name in varchar2,
+a_sex in char,
+a_birthday varchar2,
+a_email varchar2,
+p_cursor out sys_refcursor
+)
+as
+str1  varchar2(200):=' select * from users' ||  
+                        ' where   
+                        password like :a_passwd and 
+                        name like :a_name and
+                        sex like :a_sex and
+                        birthday like :a_birthday and
+                        email like :a_email                         
+                        ' ;
+begin
+         open p_cursor for str1 using  '%' || a_passwd|| '%' , '%'|| a_name||'%',
+         '%'|| a_sex||'%','%'|| a_birthday||'%','%'|| a_email||'%';
+end  pro_updateuser;
+
+		 * 
+		 * 
+		 * 
+		 * 
+		 */
 	}
 
+
 }
+
+
+
+

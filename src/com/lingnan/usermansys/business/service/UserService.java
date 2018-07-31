@@ -1,6 +1,7 @@
 package com.lingnan.usermansys.business.service;
 import com.lingnan.usermansys.usermgr.domain.UserVO;
-public interface DaoService {
+public interface UserService {
+
 	//登录
 	public UserVO login(String username,String password);
 	//注册，添加新用户
