@@ -6,10 +6,17 @@ import java.util.regex.Pattern;
 import com.lingnan.usermansys.comm.exception.DateException;
 import com.lingnan.usermansys.comm.exception.EmailException;
 public class TypeUtils {
+	/**
+	 * 进行邮箱验证的正则表达式
+	 */
 	public static final String REGEX_EMAIL = "^([a-z0-9A-Z]+[-|\\.]?)+"
 			+ "[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
 
-	// 字符串转日期
+	/**
+	 *  字符串转日期
+	 * @param str 需要转换为日期的字符串，格式为：yyyy-MM-dd
+	 * @return Date类型数据
+	 */
 	public static Date strToDate(String str) {
 		Date date = null;
 		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
@@ -25,7 +32,11 @@ public class TypeUtils {
 
 	}
 
-	// 日期转字符串
+	/**
+	 * 日期转字符串
+	 * @param dt 需要转换为字符串的日期
+	 * @return String类型数据
+	 */
 	public static String dateToStr(Date dt) {
 		String str = null;
 		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
@@ -41,7 +52,11 @@ public class TypeUtils {
 
 	}
 
-	// 邮箱格式验证
+	/**
+	 *  邮箱格式验证
+	 * @param e_mail 待验证的邮件地址
+	 * @return 返回布尔类型
+	 */
 	public static boolean checkEmail(String e_mail) {
 		boolean flag = false;
 		try {

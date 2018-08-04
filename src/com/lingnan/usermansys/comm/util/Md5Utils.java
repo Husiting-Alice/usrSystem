@@ -2,8 +2,11 @@ package com.lingnan.usermansys.comm.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 public class Md5Utils {
-	/*
+	/**
+	 * MD5加密算法，将密码转换成定长16进制数
 	 * 将byte数组转为16进制输出
+	 * @param bytes
+	 * @return
 	 */
 	public static String convertByteToHexString(byte[] bytes) {
 		String result="";
@@ -20,9 +23,13 @@ public class Md5Utils {
 		}
 		return result;
 	}
-	/*
+	/**
 	 * md5 加密
+	 * @param message 需要加密的信息
+	 * @return
 	 */
+	
+	 
 	public static String md5Jdk(String message) {
 		String temp="";
 		try {

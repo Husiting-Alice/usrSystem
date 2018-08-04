@@ -10,11 +10,16 @@ import com.lingnan.usermansys.comm.exception.DaoException;
 
 public class DbUtils {
 	
-	//connect to database
+	/**
+	 * 创建数据库连接
+	 * @return 返回数据库连接对象
+	 * @throws InstantiationException 抛出异常
+	 * @throws IllegalAccessException
+	 */
 	public static Connection getConnection() throws InstantiationException, IllegalAccessException {
 		Connection conn = null;
 		try {
-			// 1.加载数据库驱动
+			/** 1.加载数据库驱动*/
 			Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "hst123456");
 		} 
@@ -27,30 +32,36 @@ public class DbUtils {
 //			e.printStackTrace();
 			throw new DaoException("没有连接到数据库",e);
 		}
-		System.out.println("已经连接到数据库");
+//		System.out.println("已经连接到数据库");
 		return conn;
 	}
 
-	//开启事务
+	/**
+	 * 开启事务
+	 * @param conn 
+	 */
 	public static void beginTransaction(Connection conn) {
 		try {
-			//将事务的自动提交模式设为假
+			/**将事务的自动提交模式设为假*/
 			conn.setAutoCommit(false);
 		}
 		catch (SQLException e) {
-			// 将异常封装成自定义异常
+			/** 将异常封装成自定义异常*/
             throw new DaoException("事务开启失败",e);
 //			System.out.println("事务开启失败");
 		}
 		
 	}
 	
-	//提交事务
+	/**
+	 * 提交事务
+	 * @param conn
+	 */
 	public static void commit(Connection conn) {
 		try {
-			//提交事务
+			/**提交事务*/
 			conn.commit();
-			//将事务的自动提交模式设为真
+			/**将事务的自动提交模式设为真*/
 			conn.setAutoCommit(true);		
 			
 		} catch (Exception e) {			
@@ -60,12 +71,12 @@ public class DbUtils {
 		}
 	}
 	
-	//回滚事务
+	/**回滚事务*/
 	public static void rollback(Connection conn) {
 		try {
-		//提交事务
+			/**回滚事务*/
 		conn.rollback();
-		//将事务的自动提交模式设为真
+		/**将事务的自动提交模式设为真*/
 		conn.setAutoCommit(true);
 		}catch (Exception e) {
 //			System.out.println("事务回滚失败");
@@ -77,7 +88,12 @@ public class DbUtils {
 	}
 
 	
-	
+	/**
+	 * 关闭数据库声明对象
+	 * @param rs 结果集对象
+	 * @param stat 声明对象
+	 * @param prep 预编译对象
+	 */
 	public static void closeStatement(ResultSet rs,Statement stat,PreparedStatement prep) {
 		try {
 			//如果数据库结果集对象不为空，关闭该对象
@@ -115,7 +131,11 @@ public class DbUtils {
 }
 	
 	
-	//关闭数据库连接对象
+	
+	/**
+	 * 关闭数据库连接对象
+	 * @param conn 数据库连接对象
+	 */
 	public static void closeConnection(Connection conn) {
 		try {
 			//如果数据库连接对象不为空，关闭该对象

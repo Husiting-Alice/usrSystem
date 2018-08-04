@@ -1,9 +1,9 @@
 package com.lingnan.usermansys.comm.exception;
 
-/*
+/**
  * 自定义异常，
  * 1、 继承运行时异常
- * 2、构造方法
+ * 2、构造方法 4种
  */
 public class DaoException extends RuntimeException{
 

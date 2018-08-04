@@ -16,7 +16,10 @@ import com.lingnan.usermansys.comm.util.TypeUtils;
 import com.lingnan.usermansys.usermgr.domain.UserVO;
 
 class test1 {
-
+/**
+ * 单元测试，为实现测试先行的
+ * @throws SQLException
+ */
 	@Test  //注解
 	void test() throws SQLException{
 		/*		
